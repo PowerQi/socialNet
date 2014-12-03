@@ -35,10 +35,9 @@ app.get('/', function(req, res){
 });
 
 app.post('/login', function(req, res) {
-	console.log('login request');
 	var email = req.param('email', null);
 	var password = req.param('password', null);
-
+	console.log(email + ' send a login request');
 	if ( null === email || email.length < 1 || null === password || password.length < 1 ) {
 		res.send(400);
 		return;
@@ -49,7 +48,7 @@ app.post('/login', function(req, res) {
 			res.send(401);
 			return;
 		}
-		console.log('login was successful');
+		console.log(email + 'login was successful');
 		req.session.loggedIn = true; 
 		req.session.accountId = account._id;
 		res.send(200);
@@ -85,8 +84,7 @@ app.get('/accounts/:id/contacts', function(req, res){
 						?req.session.accountId
 						:req.params.id;
 	models.Account.findById(accountId, function(account){
-		if(typeof account.contacts != 'undefined'){
-			console.log(account.contacts);			
+		if(typeof account.contacts != 'undefined'){	
 			res.send(account.contacts);
 		}else{
 			res.send(200);
@@ -122,7 +120,6 @@ app.post('/accounts/:id/status', function(req, res) {
 			name: account.name,
 			status: req.param('status', '')
 		};
-		console.log(account);
 		account.status.push(status);
 		// Push the status to all friends
 		account.activity.push(status);

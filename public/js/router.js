@@ -37,8 +37,6 @@ Account, StatusCollection, Contact, ContactCollection) {
 				collection: statusCollection
 			}));
 			statusCollection.fetch();
-			console.log('statusCollection fetch');
-			console.log(statusCollection);
 		},
 		login: function() {
 			this.changeView(new LoginView());
@@ -63,8 +61,6 @@ Account, StatusCollection, Contact, ContactCollection) {
 			}));
 			//从服务器拉取集合的默认模型，成功接收数据后会重置（reset）集合。
 			contactCollection.fetch({reset: true});
-			console.log('contactCollection fetch');
-			console.log(contactCollection);
 		},
 		addcontact: function(){
 			this.changeView(new AddContactView());

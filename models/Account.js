@@ -17,7 +17,7 @@ module.exports = function(config, mongoose, nodemailer) {
 		accountId: {type: mongoose.Schema.ObjectId},
 		added: {type: Date},
 		updated: {type:Date}
-	})
+	});
 
 	var AccountSchema = new mongoose.Schema({
 		email: { type: String, unique: true },
@@ -43,7 +43,7 @@ module.exports = function(config, mongoose, nodemailer) {
 	var registerCallback = function(err) {
 		if (err) {
 			return console.log(err);
-		};
+		}
 		return console.log('Account was created');
 	};
 
@@ -74,6 +74,7 @@ module.exports = function(config, mongoose, nodemailer) {
 					if (err) {
 						callback(false);
 					} else {
+						console.log('A confirm email has been send to ' + doc.email);
 						callback(true);
 					}
 				});
@@ -107,17 +108,12 @@ module.exports = function(config, mongoose, nodemailer) {
 			if(doc instanceof Array && doc.length > 0){
 				doc = doc[0];
 			}
-			/*
-			console.log('account.contacts: ');
-			console.log(doc);
-			console.log(doc.contacts);
-			*/
 			callback(doc);
 		});
-	} 
+	}; 
 
 	var addContact = function(account, addcontact){
-		contact = {
+		var contact = {
 			name: {first: addcontact.name.first, last: addcontact.name.last},
 			accountId: addcontact._id,
 			added: new Date(),
@@ -132,8 +128,8 @@ module.exports = function(config, mongoose, nodemailer) {
 		});
 	};
 
-	var removeContact = function(account, callback){
-		if(null == account.contacts) return;
+	var removeContact = function(account, contactId){
+		if(null === account.contacts) return;
 
 		account.contacts.forEach(function(contact){
 			if(contact.accountId == contactId){
@@ -144,7 +140,7 @@ module.exports = function(config, mongoose, nodemailer) {
 	};  
 
 	var hasContact = function(account, contactId){
-		if(null == account || "undefined" == typeof(account.contacts)) return false;
+		if(null === account || "undefined" === typeof(account.contacts)) return false;
 		account.contacts.forEach(function(contact){
 			if(contact.accountId == contactId){
 				return true;
@@ -169,7 +165,7 @@ module.exports = function(config, mongoose, nodemailer) {
 		});
 		user.save(registerCallback);
 		console.log('Save command was sent');
-	}
+	};
 
 	return {
 		findById: findById,
@@ -182,5 +178,5 @@ module.exports = function(config, mongoose, nodemailer) {
 		removeContact: removeContact,
 		login: login,
 		Account: Account
-	}
-}
+	};
+};
