@@ -1,6 +1,7 @@
 "use strict";
 
 require.config({
+  waitSeconds: 2000,
   paths: {
     jQuery: '/bower_components/jquery/dist/jquery',
     Underscore: '/bower_components/underscore/underscore',

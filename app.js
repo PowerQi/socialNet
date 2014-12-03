@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var nodemailer = require('nodemailer');
-var MemoryStore = require('connect').session.MemoryStore;
+var MemoryStore = express.session.MemoryStore;
 var dbPath = "mongodb://localhost/nodebackbone";
 
 // Import the data layer
@@ -39,7 +39,7 @@ app.post('/login', function(req, res) {
 	var email = req.param('email', null);
 	var password = req.param('password', null);
 
-	if ( null == email || email.length < 1 || null == password || password.length < 1 ) {
+	if ( null === email || email.length < 1 || null === password || password.length < 1 ) {
 		res.send(400);
 		return;
 	}
@@ -62,8 +62,8 @@ app.post('/register', function(req, res) {
 	var email = req.param('email', null);
 	var password = req.param('password', null);
 
-	if ( null == email || email.length < 1
-	|| null == password || password.length < 1 ) {
+	if ( null === email || email.length < 1
+	|| null === password || password.length < 1 ) {
 		res.send(400);
 		return;
 	}
@@ -122,6 +122,7 @@ app.post('/accounts/:id/status', function(req, res) {
 			name: account.name,
 			status: req.param('status', '')
 		};
+		console.log(account);
 		account.status.push(status);
 		// Push the status to all friends
 		account.activity.push(status);
@@ -141,15 +142,15 @@ app.delete('/accounts/:id/contact', function(req, res){
 	var contactId = req.param('contactId', null);
 
 	//Missinf contactId, not going any further
-	if(null = contactId){
+	if(null === contactId){
 		req.send(400);
 		return;
 	}
 
 	models.Account.findById(accountId, function(account){
-		if(!account) retrun;
+		if(!account) ;
 		models.Account.findById(contactId, function(contact, err){
-			if(!contact) retrun;
+			if(!contact) ;
 
 			models.Account.removeContact(account, contactId);
 			//kill the reverse link
@@ -168,7 +169,7 @@ app.post('/accounts/:id/contact', function(req, res){
 						:req.params.id;
 	var contactId = req.param('contactId', null);
 	//Missing contactId, don't bother going any further
-	if(null == contactId){
+	if(null === contactId){
 		res.send(400);
 		return;
 	}
@@ -204,7 +205,7 @@ app.post('/forgotpassword', function(req, res) {
 	var hostname = req.headers.host;
 	var resetPasswordUrl = 'http://' + hostname + '/resetPassword';
 	var email = req.param('email', null);
-	if ( null == email || email.length < 1 ) {
+	if ( null === email || email.length < 1 ) {
 		res.send(400);
 		return;
 	}
@@ -221,14 +222,14 @@ app.post('/forgotpassword', function(req, res) {
 
 app.post('/contacts/find', function(req, res){
 	var searchStr = req.param('searchStr', null);	
-	if( null == searchStr){
+	if( null === searchStr){
 		res.send(400);
 		return;
 	}
 
 	models.Account.findByString(searchStr, function onSearchDone(err, accounts){
 		
-		if(err || accounts.length ==0){
+		if(err || accounts.length ===0){
 			res.send(400);
 		}else {
 			res.send(accounts);
@@ -251,5 +252,5 @@ app.post('/resetPassword', function(req, res) {
 	res.render('resetPasswordSuccess.jade');
 });
 
-app.listen(8089);
-console.log('listening on port 8089');
+app.listen(process.env.PORT);
+console.log('express listening on port:'	 + process.env.PORT );
