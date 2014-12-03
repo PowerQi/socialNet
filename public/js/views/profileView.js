@@ -3,7 +3,7 @@ define([
  	'text!/templates/profile.html',
 	'text!/templates/status.html', 
 	'models/Status',
-	'views/Status'
+	'views/status'
 ],function(SocialNetView, profileTemplate,statusTemplate, Status, StatusView){
 	var profileView = SocialNetView.extend({
 		el: $('#content'),
