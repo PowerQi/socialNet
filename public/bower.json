@@ -1,0 +1,33 @@
+{
+  "name": "socialNet",
+  "version": "0.0.0",
+  "authors": [
+    "zhengziqi <frfgzzq@aliyun.com>"
+  ],
+  "description": "this is a demo of social net",
+  "main": "requirejs",
+  "moduleType": [
+    "amd",
+    "es6",
+    "node"
+  ],
+  "keywords": [
+    "node",
+    "backbone",
+    "require"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "requirejs": "~2.1.15",
+    "jquery": "~2.1.1"
+  }
+}
