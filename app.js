@@ -251,5 +251,5 @@ app.post('/resetPassword', function(req, res) {
 	res.render('resetPasswordSuccess.jade');
 });
 
-app.listen(8089);
-console.log('listening on port 8089');
+app.listen(process.env.PORT);
+console.log('listening on port: ' + process.env.PORT);
