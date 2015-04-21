@@ -1,6 +1,6 @@
 socialNet
 =========
-this is a private demo of social net
+this is a coffeescript app
 
 ========
 start mongodb server: ./mongod
