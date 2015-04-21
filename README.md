@@ -1,6 +1,6 @@
 socialNet
 =========
-this is a coffeescript app
+this is a coffeescript appsssssss
 
 ========
 start mongodb server: ./mongod
