@@ -10,7 +10,8 @@ require.config({
     text: '/js/libs/text',
     templates: '../templates',
     socialNet: '/js/socialNet',
-    SocialNetView: '/js/SocialNetView'
+    SocialNetView: '/js/SocialNetView',
+    Sockets: '/socket.io/socket.io'
   },
 
   shim: {

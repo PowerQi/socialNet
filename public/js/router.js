@@ -14,6 +14,7 @@ define([
 Account, StatusCollection, Contact, ContactCollection) {
 	var SocialRouter = Backbone.Router.extend({
 		currentView: null,
+		
 		routes: {
 			"index": "index",
 			"login": "login",
@@ -23,6 +24,9 @@ Account, StatusCollection, Contact, ContactCollection) {
 			"contacts/:id": "contacts",
 			"addcontact": "addcontact"
 		},
+		
+		socketEvents: _.extend({}, Backbone.Events),
+		
 		changeView: function(view) {
 			if ( null != this.currentView ) {
 				this.currentView.undelegateEvents();// 解绑 释放内存
@@ -30,6 +34,11 @@ Account, StatusCollection, Contact, ContactCollection) {
 			this.currentView = view;
 			this.currentView.render();
 		},
+		
+		login: function(){
+			this.changeView(new LoginView({socketEvents: this.socketEvents}));
+		},
+		
 		index: function() {
 			var statusCollection = new StatusCollection();
 			statusCollection.url = '/accounts/me/activity';
@@ -38,20 +47,21 @@ Account, StatusCollection, Contact, ContactCollection) {
 			}));
 			statusCollection.fetch();
 		},
-		login: function() {
-			this.changeView(new LoginView());
-		},
+		
 		forgotpassword: function() {
 			this.changeView(new ForgotPasswordView());
 		},
+		
 		register: function() {
 			this.changeView(new RegisterView());
 		},
+		
 		profile: function(id) {
 			var model = new Account({id:id});
 			this.changeView(new ProfileView({model:model}));
 			model.fetch();
 		},
+		
 		contacts: function(id){
 			var contactId = id?id:'me';
 			var contactCollection = new ContactCollection();
@@ -62,6 +72,7 @@ Account, StatusCollection, Contact, ContactCollection) {
 			//从服务器拉取集合的默认模型，成功接收数据后会重置（reset）集合。
 			contactCollection.fetch({reset: true});
 		},
+		
 		addcontact: function(){
 			this.changeView(new AddContactView());
 		}
