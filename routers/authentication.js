@@ -13,7 +13,7 @@ module.exports = function(app, models){
     			res.send(401);
     			return;
     		}
-    		console.log(email + 'login was successful');
+    		console.log(email + ' login was successful');
     		req.session.loggedIn = true; 
     		req.session.accountId = account._id;
     		res.send(200);

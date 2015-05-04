@@ -1,9 +1,9 @@
-define(['Sockets', 'models/contactCollection', 'views/chatView'], function(io, ContactCollection, ChatView){
+define(['Sockets', 'models/ContactCollection', 'views/chatView'], function(io, ContactCollection, ChatView){
     var SocialNetSockets = function(eventDispatcher){
         var socket = null;
         
         var connectSocket = function(){
-            socket = io.connect().socket;
+            socket = io.connect();
             
             socket
             .on('connect_failed', function(reason){

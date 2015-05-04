@@ -4,7 +4,10 @@ var nodemailer = require('nodemailer');
 var fs = require("fs");
 var MemoryStore = express.session.MemoryStore;
 var dbPath = "mongodb://localhost/nodebackbone";
+var http = require('http');
 
+//create a session store to share between methods
+app.sessionStore = new MemoryStore();
 
 // Import the data layer
 var mongoose = require('mongoose');
@@ -18,14 +21,15 @@ var models = {
 };
 
 app.configure(function(){
+	app.sessionSecret = "SocialNet secret key";
 	app.set('view engine', 'jade');
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.limit('1mb'));
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
 	app.use(express.session({
-		secret: "SocialNet secret key",
-		store: new MemoryStore(),
+		secret: app.sessionSecret,
+		store: app.sessionStore,
 		key: 'express.sid'
 	}));
 	mongoose.connect(dbPath, function onMongooseError(err){

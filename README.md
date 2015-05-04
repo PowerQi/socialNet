@@ -1,14 +1,13 @@
 socialNet
 =========
-this is a coffeescript app
-
+this is a a real-time networking twist application.
 ========
-start mongodb server: ./mongod
-mongodb console: mongo
+start mongodb server $: ./mongod
+mongodb console $: mongo
 
 =========
 if mongodb throws error: Unclean shutdown detected mongodb
-execute option: mongod --repair --dbpath data
+execute option $: mongod --repair --dbpath data
 
 =========
 make compiler

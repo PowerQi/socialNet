@@ -12,9 +12,11 @@ define(['text!/templates/login.html', 'Backbone'], function(loginTemplate, Backb
 		
 		login: function() {
 			var socketEvents = this.socketEvents;
-			$.post('/login', this.$('form').serialize(), function(data) {
+			$.post('/login', this.$('form').serialize()).success(function(data) {
+				
 				socketEvents.trigger('app:loggedin');
 				window.location.hash = 'index';
+				console.log(22);
 			}).error(function(){
 				$("#error").text('Unable to login.');
 				$("#error").slideDown();
